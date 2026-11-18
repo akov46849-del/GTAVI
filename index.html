@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GTA VI — ОТЧЁТ ДО 16:00</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { overflow-x: hidden; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0a0015;
+    color: #fff;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Фон — закат Vice City */
+  .sky {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(180deg, 
+      #0a0015 0%, 
+      #1a0533 20%, 
+      #4a0e5e 40%, 
+      #b02a7a 60%, 
+      #ff6b35 80%, 
+      #ffb347 100%);
+    z-index: -3;
+  }
+  
+  .sun {
+    position: fixed;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #fff350 0%, #ff9a00 40%, #ff4d88 100%);
+    box-shadow: 0 0 120px #ff6b35, 0 0 200px #ff4d88;
+    z-index: -2;
+    filter: blur(2px);
+  }
+  
+  .sun::after {
+    content: '';
+    position: absolute;
+    inset: 50% 0 0 0;
+    background: repeating-linear-gradient(
+      180deg,
+      transparent 0px,
+      transparent 15px,
+      rgba(10,0,21,0.9) 15px,
+      rgba(10,0,21,0.9) 22px
+    );
+    border-radius: 0 0 50% 50%;
+  }
+  
+  /* Пальмы */
+  .palm {
+    position: fixed;
+    bottom: 0;
+    z-index: -1;
+    font-size: 300px;
+    line-height: 0.8;
+    filter: brightness(0) drop-shadow(0 0 20px rgba(255,107,53,0.5));
+    opacity: 0.95;
+    user-select: none;
+  }
+  .palm.left { left: -30px; }
+  .palm.right { right: -30px; transform: scaleX(-1); }
+  
+  /* Сетка-ретро */
+  .grid {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40vh;
+    background-image: 
+      linear-gradient(rgba(255,107,53,0.4) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,107,53,0.4) 1px, transparent 1px);
+    background-size: 60px 60px;
+    transform: perspective(300px) rotateX(60deg);
+    transform-origin: bottom;
+    z-index: -1;
+    mask-image: linear-gradient(180deg, transparent 0%, #000 60%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 60%);
+  }
+  
+  /* Контент */
+  .container {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  
+  .badge {
+    display: inline-block;
+    padding: 8px 22px;
+    background: rgba(0,0,0,0.5);
+    border: 2px solid #ff6b35;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #ffb347;
+    backdrop-filter: blur(10px);
+    margin-bottom: 25px;
+    box-shadow: 0 0 20px rgba(255,107,53,0.6);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(255,107,53,0.6); }
+    50% { box-shadow: 0 0 40px rgba(255,107,53,1), 0 0 60px rgba(255,77,136,0.6); }
+  }
+  
+  /* Логотип GTA VI */
+  .logo-wrap {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .logo-main {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(80px, 18vw, 220px);
+    line-height: 0.9;
+    letter-spacing: 6px;
+    background: linear-gradient(180deg, #fff350 0%, #ff6b35 45%, #ff2d87 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 30px rgba(255,77,136,0.8)) drop-shadow(0 0 60px rgba(255,107,53,0.6));
+    text-shadow: 0 0 80px rgba(255,77,136,0.6);
+    animation: glow 3s ease-in-out infinite;
+  }
+  
+  @keyframes glow {
+    0%, 100% { filter: drop-shadow(0 0 30px rgba(255,77,136,0.8)) drop-shadow(0 0 60px rgba(255,107,53,0.6)); }
+    50% { filter: drop-shadow(0 0 50px rgba(255,77,136,1)) drop-shadow(0 0 100px rgba(255,107,53,0.9)); }
+  }
+  
+  .subtitle {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(20px, 3vw, 32px);
+    letter-spacing: 12px;
+    color: #fff;
+    margin-top: 10px;
+    text-shadow: 0 0 20px rgba(255,255,255,0.8);
+  }
+  
+  .deadline-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 5vw, 60px);
+    letter-spacing: 3px;
+    color: #fff;
+    margin: 30px 0 10px;
+    text-transform: uppercase;
+    text-shadow: 
+      0 0 10px #ff2d87,
+      0 0 30px #ff2d87,
+      0 0 60px #ff6b35;
+  }
+  
+  .deadline-sub {
+    font-size: 15px;
+    color: #ffb347;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    opacity: 0.9;
+  }
+  
+  /* Таймер */
+  .timer {
+    display: flex;
+    gap: clamp(8px, 2vw, 20px);
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .time-box {
+    background: rgba(10,0,21,0.6);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255,107,53,0.5);
+    border-radius: 16px;
+    padding: clamp(15px, 2.5vw, 25px) clamp(15px, 3vw, 35px);
+    min-width: clamp(80px, 15vw, 130px);
+    box-shadow: 
+      0 0 30px rgba(255,77,136,0.4),
+      inset 0 0 20px rgba(255,107,53,0.15);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .time-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ff2d87, #ff6b35, #fff350);
+  }
+  
+  .time-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 7vw, 72px);
+    line-height: 1;
+    color: #fff;
+    text-shadow: 0 0 20px rgba(255,45,135,0.8);
+    display: block;
+    font-variant-numeric: tabular-nums;
+  }
+  
+  .time-label {
+    font-size: clamp(10px, 1.2vw, 13px);
+    letter-spacing: 3px;
+    color: #ffb347;
+    text-transform: uppercase;
+    margin-top: 8px;
+    font-weight: 700;
+  }
+  
+  /* Прогресс */
+  .progress-wrap {
+    width: min(600px, 90vw);
+    margin-bottom: 30px;
+  }
+  
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #ffb347;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  
+  .progress-bar {
+    height: 8px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255,107,53,0.4);
+  }
+  
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ff2d87, #ff6b35, #fff350);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255,107,53,0.8);
+    transition: width 1s linear;
+    position: relative;
+  }
+  
+  .progress-fill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+    animation: shimmer 2s infinite;
+  }
+  
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  
+  /* Футер */
+  .footer-note {
+    font-size: 13px;
+    color: rgba(255,179,71,0.7);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 20px;
+    padding: 12px 24px;
+    border: 1px solid rgba(255,107,53,0.3);
+    border-radius: 8px;
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+  }
+  
+  /* Глитч */
+  .glitch {
+    position: relative;
+  }
+  .glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #fff350 0%, #ff6b35 45%, #ff2d87 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .glitch::before {
+    animation: glitch1 3s infinite;
+    opacity: 0.8;
+  }
+  .glitch::after {
+    animation: glitch2 3s infinite;
+    opacity: 0.8;
+  }
+  
+  @keyframes glitch1 {
+    0%, 90%, 100% { transform: translate(0); }
+    92% { transform: translate(-3px, 2px); }
+    94% { transform: translate(3px, -2px); }
+    96% { transform: translate(-2px, -1px); }
+  }
+  @keyframes glitch2 {
+    0%, 90%, 100% { transform: translate(0); }
+    93% { transform: translate(3px, -2px); }
+    95% { transform: translate(-3px, 2px); }
+    97% { transform: translate(2px, 1px); }
+  }
+  
+  /* Звёзды */
+  .star {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle 3s infinite;
+    z-index: -2;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; box-shadow: 0 0 6px #fff; }
+  }
+  
+  @media (max-width: 500px) {
+    .palm { font-size: 180px; }
+    .sun { width: 250px; height: 250px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sky"></div>
+<div class="sun"></div>
+<div class="grid"></div>
+<div class="palm left">🌴</div>
+<div class="palm right">🌴</div>
+
+<div class="container">
+  <div class="badge">● СРОЧНЫЙ ОТЧЁТ</div>
+  
+  <div class="logo-wrap">
+    <div class="logo-main glitch" data-text="GTA VI">GTA VI</div>
+  </div>
+  
+  <div class="subtitle">VICE CITY</div>
+  
+  <div class="deadline-text">Отчёт до 16:00</div>
+  <div class="deadline-sub">По Екатеринбургу (UTC+5)</div>
+  
+  <div class="timer">
+    <div class="time-box">
+      <span class="time-num" id="hours">00</span>
+      <div class="time-label">Часов</div>
+    </div>
+    <div class="time-box">
+      <span class="time-num" id="minutes">00</span>
+      <div class="time-label">Минут</div>
+    </div>
+    <div class="time-box">
+      <span class="time-num" id="seconds">00</span>
+      <div class="time-label">Секунд</div>
+    </div>
+  </div>
+  
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>День</span>
+      <span id="percent">0%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+    </div>
+  </div>
+  
+  <div class="footer-note" id="footerNote">
+    ⏳ Успей сдать отчёт до
