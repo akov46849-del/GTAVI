@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GTAVI — ОТЧЁТ ДО 16:00</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>GTA VI — До выхода</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -17,7 +18,6 @@
     overflow: hidden;
   }
   
-  /* Фон — закат Vice City */
   .sky {
     position: fixed;
     inset: 0;
@@ -59,7 +59,6 @@
     border-radius: 0 0 50% 50%;
   }
   
-  /* Пальмы */
   .palm {
     position: fixed;
     bottom: 0;
@@ -73,7 +72,6 @@
   .palm.left { left: -30px; }
   .palm.right { right: -30px; transform: scaleX(-1); }
   
-  /* Сетка-ретро */
   .grid {
     position: fixed;
     bottom: 0;
@@ -91,7 +89,6 @@
     -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 60%);
   }
   
-  /* Контент */
   .container {
     position: relative;
     z-index: 10;
@@ -100,7 +97,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 40px 20px;
+    padding: 30px 20px;
     text-align: center;
   }
   
@@ -116,7 +113,7 @@
     text-transform: uppercase;
     color: #ffb347;
     backdrop-filter: blur(10px);
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     box-shadow: 0 0 20px rgba(255,107,53,0.6);
     animation: pulse 2s ease-in-out infinite;
   }
@@ -126,15 +123,9 @@
     50% { box-shadow: 0 0 40px rgba(255,107,53,1), 0 0 60px rgba(255,77,136,0.6); }
   }
   
-  /* Логотип GTA VI */
-  .logo-wrap {
-    position: relative;
-    margin-bottom: 20px;
-  }
-  
   .logo-main {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(80px, 18vw, 220px);
+    font-size: clamp(80px, 18vw, 200px);
     line-height: 0.9;
     letter-spacing: 6px;
     background: linear-gradient(180deg, #fff350 0%, #ff6b35 45%, #ff2d87 100%);
@@ -142,7 +133,6 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 0 30px rgba(255,77,136,0.8)) drop-shadow(0 0 60px rgba(255,107,53,0.6));
-    text-shadow: 0 0 80px rgba(255,77,136,0.6);
     animation: glow 3s ease-in-out infinite;
   }
   
@@ -162,27 +152,24 @@
   
   .deadline-text {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(28px, 5vw, 60px);
+    font-size: clamp(32px, 5vw, 60px);
     letter-spacing: 3px;
     color: #fff;
     margin: 30px 0 10px;
     text-transform: uppercase;
-    text-shadow: 
-      0 0 10px #ff2d87,
-      0 0 30px #ff2d87,
-      0 0 60px #ff6b35;
+    text-shadow: 0 0 10px #ff2d87, 0 0 30px #ff2d87, 0 0 60px #ff6b35;
   }
   
   .deadline-sub {
-    font-size: 15px;
+    font-size: 14px;
     color: #ffb347;
     letter-spacing: 3px;
     text-transform: uppercase;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     opacity: 0.9;
   }
   
-  /* Таймер */
+  /* Таймер: 3 блока */
   .timer {
     display: flex;
     gap: clamp(8px, 2vw, 20px);
@@ -196,11 +183,9 @@
     backdrop-filter: blur(20px);
     border: 2px solid rgba(255,107,53,0.5);
     border-radius: 16px;
-    padding: clamp(15px, 2.5vw, 25px) clamp(15px, 3vw, 35px);
-    min-width: clamp(80px, 15vw, 130px);
-    box-shadow: 
-      0 0 30px rgba(255,77,136,0.4),
-      inset 0 0 20px rgba(255,107,53,0.15);
+    padding: clamp(15px, 2vw, 25px) clamp(15px, 3vw, 35px);
+    min-width: clamp(80px, 25vw, 130px);
+    box-shadow: 0 0 30px rgba(255,77,136,0.4), inset 0 0 20px rgba(255,107,53,0.15);
     position: relative;
     overflow: hidden;
   }
@@ -208,16 +193,14 @@
   .time-box::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     height: 3px;
     background: linear-gradient(90deg, #ff2d87, #ff6b35, #fff350);
   }
   
   .time-num {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(36px, 7vw, 72px);
+    font-size: clamp(40px, 8vw, 72px);
     line-height: 1;
     color: #fff;
     text-shadow: 0 0 20px rgba(255,45,135,0.8);
@@ -230,11 +213,10 @@
     letter-spacing: 3px;
     color: #ffb347;
     text-transform: uppercase;
-    margin-top: 8px;
+    margin-top: 5px;
     font-weight: 700;
   }
   
-  /* Прогресс */
   .progress-wrap {
     width: min(600px, 90vw);
     margin-bottom: 30px;
@@ -252,7 +234,7 @@
   }
   
   .progress-bar {
-    height: 8px;
+    height: 10px;
     background: rgba(0,0,0,0.5);
     border-radius: 10px;
     overflow: hidden;
@@ -266,6 +248,7 @@
     box-shadow: 0 0 15px rgba(255,107,53,0.8);
     transition: width 1s linear;
     position: relative;
+    width: 0%;
   }
   
   .progress-fill::after {
@@ -281,7 +264,6 @@
     100% { transform: translateX(100%); }
   }
   
-  /* Футер */
   .footer-note {
     font-size: 13px;
     color: rgba(255,179,71,0.7);
@@ -295,49 +277,9 @@
     backdrop-filter: blur(10px);
   }
   
-  /* Глитч */
-  .glitch {
-    position: relative;
-  }
-  .glitch::before, .glitch::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(180deg, #fff350 0%, #ff6b35 45%, #ff2d87 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .glitch::before {
-    animation: glitch1 3s infinite;
-    opacity: 0.8;
-  }
-  .glitch::after {
-    animation: glitch2 3s infinite;
-    opacity: 0.8;
-  }
-  
-  @keyframes glitch1 {
-    0%, 90%, 100% { transform: translate(0); }
-    92% { transform: translate(-3px, 2px); }
-    94% { transform: translate(3px, -2px); }
-    96% { transform: translate(-2px, -1px); }
-  }
-  @keyframes glitch2 {
-    0%, 90%, 100% { transform: translate(0); }
-    93% { transform: translate(3px, -2px); }
-    95% { transform: translate(-3px, 2px); }
-    97% { transform: translate(2px, 1px); }
-  }
-  
-  /* Звёзды */
   .star {
     position: fixed;
-    width: 2px;
-    height: 2px;
+    width: 2px; height: 2px;
     background: #fff;
     border-radius: 50%;
     animation: twinkle 3s infinite;
@@ -363,15 +305,12 @@
 <div class="palm right">🌴</div>
 
 <div class="container">
-  <div class="badge">● СРОЧНЫЙ ОТЧЁТ</div>
+  <div class="badge">● ДО ВЫХОДА</div>
   
-  <div class="logo-wrap">
-    <div class="logo-main glitch" data-text="GTA VI">GTA VI</div>
-  </div>
-  
+  <div class="logo-main">GTA VI</div>
   <div class="subtitle">VICE CITY</div>
   
-  <div class="deadline-text">Отчёт до 16:00</div>
+  <div class="deadline-text" id="mainTitle">ДО ВЫХОДА</div>
   <div class="deadline-sub">По Екатеринбургу (UTC+5)</div>
   
   <div class="timer">
@@ -391,13 +330,98 @@
   
   <div class="progress-wrap">
     <div class="progress-label">
-      <span>День</span>
+      <span>До выхода</span>
       <span id="percent">0%</span>
     </div>
     <div class="progress-bar">
-      <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+      <div class="progress-fill" id="progressFill"></div>
     </div>
   </div>
   
   <div class="footer-note" id="footerNote">
-    ⏳ Успей сдать отчёт до
+    ⏳ Ждём релиз
+  </div>
+</div>
+
+<script>
+  // Надежный расчет времени строго по Екатеринбургу (UTC+5)
+  function getTargetDate() {
+    // Текущее время в UTC
+    const now = new Date();
+    
+    // Время в ЕКБ (прибавляем 5 часов к UTC)
+    const nowEkaterinburg = new Date(now.getTime() + (5 * 60 * 60 * 1000));
+    
+    // Устанавливаем сегодняшние 16:00 по ЕКБ
+    const targetEkaterinburg = new Date(nowEkaterinburg);
+    targetEkaterinburg.setUTCHours(16, 0, 0, 0); 
+    
+    // Если 16:00 по ЕКБ уже прошло, значит ждем завтрашние 16:00
+    if (targetEkaterinburg <= nowEkaterinburg) {
+      targetEkaterinburg.setUTCDate(targetEkaterinburg.getUTCDate() + 1);
+    }
+    
+    // Возвращаем время обратно в UTC, чтобы браузер правильно понял разницу
+    return new Date(targetEkaterinburg.getTime() - (5 * 60 * 60 * 1000));
+  }
+
+  const deadline = getTargetDate();
+  
+  // Для прогресс-бара: считаем, что от начала суток (00:00) до дедлайна 16 часов.
+  // Это нужно только для визуальной полоски.
+  const totalMsForBar = 16 * 60 * 60 * 1000; 
+
+  function updateTimer() {
+    const now = new Date();
+    const diff = deadline - now;
+    
+    if (diff <= 0) {
+      document.getElementById('hours').textContent = '00';
+      document.getElementById('minutes').textContent = '00';
+      document.getElementById('seconds').textContent = '00';
+      document.getElementById('percent').textContent = '100%';
+      document.getElementById('progressFill').style.width = '100%';
+      document.getElementById('footerNote').textContent = '🔥 GTA VI ВЫШЛА!';
+      document.getElementById('mainTitle').textContent = 'РЕЛИЗ!';
+      return;
+    }
+    
+    const totalSeconds = Math.floor(diff / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    
+    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    
+    // Прогресс бар (визуальный)
+    const elapsed = totalMsForBar - diff;
+    let percent = (elapsed / totalMsForBar) * 100;
+    
+    // Ограничиваем, чтобы не уходило за 100% или ниже 0%
+    if (percent < 0) percent = 0;
+    if (percent > 100) percent = 100;
+    
+    document.getElementById('percent').textContent = Math.floor(percent) + '%';
+    document.getElementById('progressFill').style.width = percent + '%';
+  }
+  
+  // Запуск
+  updateTimer();
+  setInterval(updateTimer, 1000);
+  
+  // Звёзды
+  for (let i = 0; i < 60; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 60 + '%';
+    star.style.animationDelay = Math.random() * 3 + 's';
+    star.style.opacity = Math.random() * 0.7 + 0.3;
+    document.body.appendChild(star);
+  }
+</script>
+
+</body>
+</html>
